@@ -1,2 +1,3 @@
-# process-monitor
-a intelligent agent of process monitor for Windows SO.
+# Process monitor
+* An intelligent agent of process monitoring for Windows SO.
+* Developed on `Pyton Language`.
