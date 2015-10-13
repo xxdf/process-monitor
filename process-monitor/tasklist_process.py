@@ -20,3 +20,17 @@ def get_processes_running():
 				   })
 	print("get_processes_running.. OK")
 	return p
+# Cria tabelas para guardar os processos de 'excessão'
+def criarTabela():
+	print("criarTabela...")
+	with sqlite3.connect("processos.db") as conexão:
+		with closing(conexão.cursor()) as cursor:
+			cursor.execute('''CREATE TABLE processos(
+				id integer primary key autoincrement,
+				image text,
+				pid integer,
+				sessionName text,
+				sessionNum text,
+				memUsage text)''')
+		conexão.commit()
+	print("\tTabela processos.. OK")
