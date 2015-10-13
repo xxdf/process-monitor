@@ -8,7 +8,7 @@
 ---
 This programm aims show how to use the some functions in python to make a sample Antivirus. e.g.
 * `subprocess`.
-* `threading` / Thread.
+* `threading` / `Thread`.
 * `Tkinter`.
 * `sqlite3` with `closing` from `contextlib`.
 
