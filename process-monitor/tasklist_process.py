@@ -1,6 +1,8 @@
 import subprocess
 from subprocess import *
 import re
+import sqlite3
+from contextlib import closing
 #-------------------- Funções --------------------------------
 # Retorna os processos que estão atualmente rodando no Windows
 def get_processes_running():
