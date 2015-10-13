@@ -6,10 +6,10 @@
 
 ---
 This programm aims show how to use the some functions in python to make a sample Antivirus. e.g.
-* Subprocess.
-* Threading / Thread.
-* Tkinter.
-* Sqlite3 with 'closing' from 'contextlib'
+* `subprocess`.
+* `threading` / Thread.
+* `Tkinter`.
+* `sqlite3` with `closing` from `contextlib`.
 
 ---
 ### Suggestions? Contact me!
