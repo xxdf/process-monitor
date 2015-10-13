@@ -4,7 +4,7 @@ import re
 import sqlite3
 from contextlib import closing
 #-------------------- Funções --------------------------------
-# Retorna os processos que estão atualmente rodando no Windows
+# Return the processes that is executing in Windows SO.
 def get_processes_running():
 	tasks = subprocess.check_output(['tasklist'])#.split("\r\n")
 	tasks = str(tasks).split('\\r\\n')
@@ -22,7 +22,7 @@ def get_processes_running():
 				   })
 	print("get_processes_running.. OK")
 	return p
-# Cria tabelas para guardar os processos de 'excessão'
+# Create table 'processos' to put exception list
 def criarTabela():
 	print("criarTabela...")
 	with sqlite3.connect("processos.db") as conexão:
@@ -36,3 +36,16 @@ def criarTabela():
 				memUsage text)''')
 		conexão.commit()
 	print("\tTabela processos.. OK")
+# Save obj 'p' on table 'processos'
+def gravar(p):
+	with sqlite3.connect("processos.db") as conexão:
+		with closing(conexão.cursor()) as cursor:
+			for x in p:
+				cursor.execute('''INSERT into processos(
+					image, pid, sessionName, sessionNum, memUsage)
+				values(?, ?, ?, ?, ?)
+					''',(x['image'], int(x['pid']),
+						x['session_name'], x['session_num'],
+						x['mem_usage']))
+		conexão.commit()
+	print("gravar..OK")
