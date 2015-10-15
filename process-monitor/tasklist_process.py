@@ -49,3 +49,16 @@ def gravar(p):
 						x['mem_usage']))
 		conexão.commit()
 	print("gravar..OK")
+# Add the process on table 'processos', that's table of exceptions
+def addExcessao(r):
+	#r == process that will be added on base 'processos' to exception
+	cursor.execute('''INSERT into processos(
+		image, pid, sessionName, sessionNum, memUsage)
+		values(?, ?, ?, ?, ?)''',(r['image'], int(r['pid']),
+			r['session_name'], r['session_num'],
+			r['mem_usage']))
+	conexao.commit()
+	messagebox.showinfo("Informação",
+		"%s Adicionado á lista de excessoes.."%(r['image']))
+	#print("%s Adicionado á lista de excessoes"%(r['image']))
+	# Imprime dados do banco de dados: tabela processos
