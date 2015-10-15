@@ -62,3 +62,23 @@ def addExcessao(r):
 		"%s Adicionado á lista de excessoes.."%(r['image']))
 	#print("%s Adicionado á lista de excessoes"%(r['image']))
 	# Imprime dados do banco de dados: tabela processos
+# Print/returns data of processes from database (table 'processos')
+def imprProcessos():
+	count=0
+	tabela = []
+	with sqlite3.connect("processos.db") as conexão:
+		with closing(conexão.cursor()) as cursor:
+			#cursor.execute('''SELECT image,pid from processos''')
+			print("%s %s"%("Nome do Processo".rjust(25),"PID".center(5)))
+			print("="*78)
+			query = ('SELECT image, pid from processos order by pid')
+			for registro in cursor.execute(query):
+				count +=1
+				#image, pid = registro
+				tabela.append(registro)
+				#print("%s %05d"%(image.rjust(25),pid))
+			#print("="*78)
+			#print("%02d processos em banco."%(count))
+			print("imprProcessos..OK")
+			return tabela, count
+			#input("...")
