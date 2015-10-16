@@ -82,3 +82,11 @@ def imprProcessos():
 			print("imprProcessos..OK")
 			return tabela, count
 			#input("...")
+# Kill process that's not are on exception list and be authorized for user
+def matarProcesso(pid, image):
+	#os.kill(int(pid),1)
+	os.system("taskkill /f /IM %s"%(image))
+	messagebox.showinfo("ÊXITO",
+		"O processo [%s] foi morto!"%(image))
+	print("matarProcesso..OK")
+	# os.kill(int(pid),1)
