@@ -114,3 +114,55 @@ def deleta(pid):
 					conexão.commit()
 					messagebox.showinfo("Sucesso","Processo deletado!")
 	#return STATUS
+# monitor with a Thread
+def monitora():
+	print("Monitorando...") # Botão
+	rodando = get_processes_running()
+	excessao = []
+	temp = []
+	with sqlite3.connect("processos.db") as conexão:
+		with closing(conexão.cursor()) as cursor:
+			query = ('SELECT image, pid FROM processos ORDER BY image')
+			for registro in cursor.execute(query):
+				excessao.append(registro)
+			print("li o banco")
+	for r in rodando:
+		achou = False
+		for e in excessao:
+			if achou:
+				break
+			elif r['image'] == e[0]:
+			#elif r['image'] == e[0] and int(r['pid']) == e[1]:
+				# Se for um processo que ja esta na lista de excessões..
+				#messagebox.showinfo("Informação",
+				#	"%s ja esta na lista de excessoes.."%(r['image']))
+				achou = True
+		if not achou:
+			# Pergunta se quer adicionálo a lista de
+			# excessões e deixar executar
+			pode = True
+			for t in temp:
+				if r['image'] == t:
+					pode = False
+					break
+			if pode:
+				if messagebox.askquestion("ATENÇÃO",
+					'''Novo processo encontrado [%s] (%05d)\nQuer adicioná-lo a lista de excessões e deixar executar?
+					'''%(r["image"],int(r['pid']))) == 'yes':
+					# Se sim, add na lista de excessões
+					with sqlite3.connect("processos.db") as conexão:
+						with closing(conexão.cursor()) as cursor:
+							cursor.execute('''INSERT INTO processos(
+								image, pid, sessionName, sessionNum, memUsage)
+								VALUES(?, ?, ?, ?, ?)''',(r['image'], int(r['pid']),
+									r['session_name'], r['session_num'],
+									r['mem_usage']))
+						conexão.commit()
+						messagebox.showinfo("Informação",
+							"%s Adicionado á lista de excessoes.."%(r['image']))
+				else:
+					# Mata processo e não adiciona em nada
+					#print("Finge que matou o processo")
+					matarProcesso(int(r['pid']), r['image'])
+					temp.append(r['image'])
+#
