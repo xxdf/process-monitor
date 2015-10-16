@@ -1,6 +1,7 @@
 import subprocess
 from subprocess import *
 import re
+import os
 import sqlite3
 from contextlib import closing
 #-------------------- Funções --------------------------------
