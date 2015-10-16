@@ -90,3 +90,26 @@ def matarProcesso(pid, image):
 		"O processo [%s] foi morto!"%(image))
 	print("matarProcesso..OK")
 	# os.kill(int(pid),1)
+# Remove from database (exception list) the process by PID (Integer)
+def deleta(pid):
+	i = True
+	with sqlite3.connect("processos.db") as conexão:
+		with closing(conexão.cursor()) as cursor:
+			query = ('DELETE FROM processos WHERE pid = %d'%(pid))
+			cursor.execute(query)
+			#resposta = input("Deletar %d registro(s)\n[S/N] Confirma?:"
+			#	%(cursor.rowcount))
+			#resposta = str(resposta).strip()
+			if cursor.rowcount == 0:
+				messagebox.showerror("Não encontrado",
+					"PID informado não foi encontrado")
+			else:
+				#resposta = messagebox.showwarning("Deletar",
+				if not messagebox.askokcancel("Deletar",
+					"Deseja Deletar %d registros?"%(cursor.rowcount)):
+					conexão.rollback()
+					messagebox.showinfo("Falha","Operação Cancelada!")
+				else:
+					conexão.commit()
+					messagebox.showinfo("Sucesso","Processo deletado!")
+	#return STATUS
