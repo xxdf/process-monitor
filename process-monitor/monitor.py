@@ -1,0 +1,7 @@
+root = Tk()
+app = Application(master=root)
+app.master.title('Menu')
+app.master.maxsize(300, 200)
+app.master.minsize(300, 200)
+root.geometry('300x200')
+app.mainloop()  
