@@ -1,4 +1,4 @@
-( in development )
+( Beta version is terminated )
 # Process monitor
 #### A sample Antivirus
 * An intelligent agent of process monitoring for Windows SO.
@@ -13,5 +13,8 @@ This programm aims show how to use the some functions in python to make a sample
 * `sqlite3` with `closing` from `contextlib`.
 
 ---
-### Suggestions? Contact me!
+This code has write in a way succint and strutured.
+
+---
+### Suggestions? Improvements? Contact me!
 eber.alves001@live.com
