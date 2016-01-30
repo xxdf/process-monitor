@@ -23,7 +23,7 @@ def get_processes_running():
 				   })
 	print("get_processes_running.. OK")
 	return p
-# Create table 'processos' to put exception list
+# Create "processos's" table to put exception list
 def criarTabela():
 	print("criarTabela...")
 	with sqlite3.connect("processos.db") as conexão:
@@ -37,7 +37,7 @@ def criarTabela():
 				memUsage text)''')
 		conexão.commit()
 	print("\tTabela processos.. OK")
-# Save obj 'p' on table 'processos'
+# Save obj 'p' on "processos's" table
 def gravar(p):
 	with sqlite3.connect("processos.db") as conexão:
 		with closing(conexão.cursor()) as cursor:
@@ -61,15 +61,12 @@ def addExcessao(r):
 	conexao.commit()
 	messagebox.showinfo("Informação",
 		"%s Adicionado á lista de excessoes.."%(r['image']))
-	#print("%s Adicionado á lista de excessoes"%(r['image']))
-	# Imprime dados do banco de dados: tabela processos
 # Print/returns data of processes from database (table 'processos')
 def imprProcessos():
 	count=0
 	tabela = []
 	with sqlite3.connect("processos.db") as conexão:
 		with closing(conexão.cursor()) as cursor:
-			#cursor.execute('''SELECT image,pid from processos''')
 			print("%s %s"%("Nome do Processo".rjust(25),"PID".center(5)))
 			print("="*78)
 			query = ('SELECT image, pid from processos order by pid')
@@ -77,15 +74,10 @@ def imprProcessos():
 				count +=1
 				#image, pid = registro
 				tabela.append(registro)
-				#print("%s %05d"%(image.rjust(25),pid))
-			#print("="*78)
-			#print("%02d processos em banco."%(count))
 			print("imprProcessos..OK")
 			return tabela, count
-			#input("...")
 # Kill process that's not are on exception list and be authorized for user
 def matarProcesso(pid, image):
-	#os.kill(int(pid),1)
 	os.system("taskkill /f /IM %s"%(image))
 	messagebox.showinfo("ÊXITO",
 		"O processo [%s] foi morto!"%(image))
@@ -98,9 +90,6 @@ def deleta(pid):
 		with closing(conexão.cursor()) as cursor:
 			query = ('DELETE FROM processos WHERE pid = %d'%(pid))
 			cursor.execute(query)
-			#resposta = input("Deletar %d registro(s)\n[S/N] Confirma?:"
-			#	%(cursor.rowcount))
-			#resposta = str(resposta).strip()
 			if cursor.rowcount == 0:
 				messagebox.showerror("Não encontrado",
 					"PID informado não foi encontrado")
@@ -113,10 +102,9 @@ def deleta(pid):
 				else:
 					conexão.commit()
 					messagebox.showinfo("Sucesso","Processo deletado!")
-	#return STATUS
 # monitor with a Thread
 def monitora():
-	print("Monitorando...") # Botão
+	print("Monitorando...") # Button
 	rodando = get_processes_running()
 	excessao = []
 	temp = []
@@ -132,14 +120,8 @@ def monitora():
 			if achou:
 				break
 			elif r['image'] == e[0]:
-			#elif r['image'] == e[0] and int(r['pid']) == e[1]:
-				# Se for um processo que ja esta na lista de excessões..
-				#messagebox.showinfo("Informação",
-				#	"%s ja esta na lista de excessoes.."%(r['image']))
 				achou = True
 		if not achou:
-			# Pergunta se quer adicionálo a lista de
-			# excessões e deixar executar
 			pode = True
 			for t in temp:
 				if r['image'] == t:
@@ -149,7 +131,6 @@ def monitora():
 				if messagebox.askquestion("ATENÇÃO",
 					'''Novo processo encontrado [%s] (%05d)\nQuer adicioná-lo a lista de excessões e deixar executar?
 					'''%(r["image"],int(r['pid']))) == 'yes':
-					# Se sim, add na lista de excessões
 					with sqlite3.connect("processos.db") as conexão:
 						with closing(conexão.cursor()) as cursor:
 							cursor.execute('''INSERT INTO processos(
@@ -162,7 +143,6 @@ def monitora():
 							"%s Adicionado á lista de excessoes.."%(r['image']))
 				else:
 					# Mata processo e não adiciona em nada
-					#print("Finge que matou o processo")
 					matarProcesso(int(r['pid']), r['image'])
 					temp.append(r['image'])
 #
