@@ -84,8 +84,6 @@ class Application(Frame):
 		listbox.pack(side=LEFT, fill=BOTH, expand=1)
 		scr.config(command=listbox.yview)
 	def deletar(self):
-		# VERIFICAR SE O CONTEÚDO É DO TIPO INTEIRO...
-		# VERIFICAR (CRIAR FUNÇÃO) SE O PID ESTA NO BANCO ANTES DE DELETAR
 		pid = self.txtPid.get()
 		pid = str(pid).strip()
 		if pid == None or not pid:
@@ -122,7 +120,6 @@ class Application(Frame):
 		self.btListaProcessos['height']= 1
 		self.btListaProcessos["command"] = self.ProcessRun
 		self.btListaProcessos.pack({'side':'left'})
-# main
 root = Tk()
 app = Application(master=root)
 app.master.title('Menu')
