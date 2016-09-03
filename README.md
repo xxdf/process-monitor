@@ -1,4 +1,4 @@
-( Beta version is terminated )
+( Beta version ended. )
 By Éber H. S. Alves
 
 # Process monitor
