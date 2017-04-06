@@ -1,5 +1,5 @@
 ( Beta version ended. )
-By Éber H. S. Alves
+Éber H. S. Alves
 
 # Process monitor
 #### A sample Antivirus
@@ -16,7 +16,7 @@ This programm aims show how to use the some functions in python to make a sample
 
 ---
 #### Usage
-* Open the archive `monitor.py`.
+* Open the archive `monitor.py` or execute on command line `python monitor.py`.
 * to Start monitoring, click on button `Monitorar`.
 * to Stop monitoring, click again on button `Monitorando...` (This button is blue).
 * On button `Editar Tabela` will show table of **Exception List**.
